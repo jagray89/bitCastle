@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+    <div id="map-canvas"></div>
+
+    <div id="q-container">
+        <form id="form">
+            <div class="form-group">
+                <label class="sr-only" for="q">Station, City, State</label>
+                <input class="form-control" id="q" placeholder="Station, City, State" type="text"/>
+            </div>
+        </form>
+    </div>
+
+    <div id="now-playing">
+        <h3 align="center">Now listening:</h3>
+
+        <div id="station-info" class="padded-element" align="center">
+            <p>(No station selected)</p>
+        </div>
+
+        {% if username %}
+        <div class="padded-element">
+            <hr/>
+            <h4 align="center">Favourites:</h4>
+            <table id="favmini">
+                {% for favourite in favourites %}
+                <tr>
+                    <td>{{ favourite.name }}</td>
+                    <td><button id="play" value="{{ favourite.url_stream }}" class="btn btn-default btn-sm play">📻</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

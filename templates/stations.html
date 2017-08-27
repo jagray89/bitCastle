@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Stations
+{% endblock %}
+
+{% block main %}
+
+    <div class="body-element">
+        <h3 align="center">Stations</h3>
+
+            <h5 align="center">
+                <div class="help-block with-errors">
+                    {% if request.args.get('error') == 'limit' %}
+                        Max. 5 favouites allowed
+                    {% elif request.args.get('error') == 'taken' %}
+                        Station already favourited!
+                    {% elif request.args.get('success') == 'True' %}
+                        Station added!
+                    {% endif %}
+                </div>
+            </h5>
+
+            <table class="table table-striped">
+                <tr>
+                    <th>Listen</th>
+                    <th><a href="{{ url_for('stations', sort='name') }}">Name</a></th>
+                    <th><a href="{{ url_for('stations', sort='call') }}">Call Sign</a></th>
+                    <th><a href="{{ url_for('stations', sort='place') }}">Location</a></th>
+                    <th><a href="{{ url_for('stations', sort='freq') }}">Frequency</a></th>
+                    <th><a href="{{ url_for('stations', sort='power') }}">Power</a></th>
+                    {% if username %}
+                    <th>Favourite</th>
+                    {% endif %}
+                </tr>
+                {% for station in stations %}
+                <tr>
+                    <td><button id="play" value="{{ station.url_stream }}" class="btn btn-default btn-sm play">📻&nbsp;</button></td>
+                    <td><a href="{{ station.url_site }}" target="_blank">{{ station.name }}</a></td>
+                    <td>{{ station.call }}</td>
+                    <td>{{ station.city }}, {{ station.state }}</td>
+                    <td>{{ station.freq }}</td>
+                    <td>{{ station.power }} watts</td>
+                    {% if username %}
+                    <td>
+                        <form action="{{ url_for('favourite') }}" method="post">
+                            <button id="fav" value="{{ station.id }}" name="add" class="btn btn-default btn-sm">⭐️</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+{% endblock %}

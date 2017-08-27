@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta -->
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+
+        <!-- JQUERY: http://jquery.com/ -->
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+        <!-- GOOGLEMAPS: https://developers.google.com/maps/documentation/javascript/ -->
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ key | urlencode }}&v=3.exp"></script>
+
+        <!-- BOOTSTRAP: documentation at http://getbootstrap.com/, validator plugin: https://github.com/1000hz/bootstrap-validator -->
+        <!-- bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- bootstrap JS plugin -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.js"></script>
+
+        <!-- TYPEAHEAD functionality -->
+        <!-- https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md -->
+        <script src="https://cdn.rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.jquery.js"></script>
+        <!-- http://handlebarsjs.com/ -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+        <!-- CUSTOM: app's own static files -->
+        <!-- custom CSS -->
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+        <!-- custom JS -->
+        <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+
+        <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        {{ JSGlue.include() }}
+
+        <!-- m3u support from https://github.com/aitorciki/jquery-playlist -->
+        <!--<script src="https://github.com/aitorciki/jquery-playlist/jquery.playlist.js"></script>-->
+        <title>Bit Castle: {% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+        <div id="header-container">
+            <div id="nav">
+                <span><a href="{{ url_for('index') }}">Map</a></span>
+                <span> | <a href="{{ url_for('stations') }}">Stations</a></span>
+                {% if username %}
+                <span> | <a href="{{ url_for('favourite') }}">Favourites</a></span>
+                {% endif %}
+                <span> | <a href="{{ url_for('about') }}">About</a></span>
+            </div>
+            <div id="header-left">
+                <div class="padded-element">
+                    <h2>Bit Castle</h2>
+                    <span>independent, college, and community radio stations</span>
+                </div>
+            </div>
+            <div id="header-block">
+                <div class="player" align="center">
+                    <audio controls name="media" id="player">
+                        <source id="stream" src="" type="audio/mpeg">
+                    </audio>
+                </div>
+            </div>
+            <div id="header-block">
+                <div class="padded-element">
+
+                    {% if not username %}
+                        <form id="login" role="form" action="{{ url_for('login') }}" method="post">
+
+                                <div class="col-xs-4">
+                                    <input type="text" class="form-control input-sm" id="username" name="username" placeholder="Username">
+                                </div>
+
+                                <div class="col-xs-4">
+                                    <input type="password" class="form-control input-sm" id="password" name="password" placeholder="Password">
+                                </div>
+
+                                <div class="col-sm-10" style="top: 5px;">
+                                    <button type="submit" class="btn btn-default btn-xs" name="submit" value="{{ request.path }}">Sign in</button>
+                                    &nbsp;
+                                    <span><a href="{{ url_for('register') }}">Register</a></span>
+
+                                    <div class="help-block with-errors">
+                                        {% if request.args.get('error') %}
+                                            Incorrect username/password
+                                        {% endif %}
+                                    </div>
+                                </div>
+                        </form>
+                    {% else %}
+                        <div class="padded-element" align="right">
+                        <span>Logged in as <strong>{{ username }}</strong></span>
+                        <br/>
+                        <span><a href="{{ url_for('logout') }}">Log out</a></span>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            {% block main %}{% endblock %}
+        </div>
+    </body>
+</html>

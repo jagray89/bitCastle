@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Favourites
+{% endblock %}
+
+{% block main %}
+
+    <div class="body-element">
+        <h3 align="center">Favourites</h3>
+
+            <h5 align="center">
+            <div class="help-block with-errors">
+                {% if request.args.get('deleted') == 'True' %}
+                    Station deleted!
+                {% endif %}
+            </div>
+            </h5>
+
+            {% if favourites %}
+            <table class="table table-striped">
+                <tr>
+                    <th>Listen</th>
+                    <th><a href="{{ url_for('stations', sort='name') }}">Name</a></th>
+                    <th><a href="{{ url_for('stations', sort='call') }}">Call Sign</a></th>
+                    <th><a href="{{ url_for('stations', sort='place') }}">Location</a></th>
+                    <th><a href="{{ url_for('stations', sort='freq') }}">Frequency</a></th>
+                    <th><a href="{{ url_for('stations', sort='power') }}">Power</a></th>
+                    <th>Delete</th>
+                </tr>
+                {% for favourite in favourites %}
+                <tr>
+                    <td><button id="play" value="{{ favourite.url_stream }}" class="btn btn-default btn-sm play">📻&nbsp;</button></td>
+                    <td><a href="{{ favourite.url_site }}" target="_blank">{{ favourite.name }}</a></td>
+                    <td>{{ favourite.call }}</td>
+                    <td>{{ favourite.city }}, {{ favourite.state }}</td>
+                    <td>{{ favourite.freq }}</td>
+                    <td>{{ favourite.power }} watts</td>
+                    <td>
+                        <form action="{{ url_for('favourite') }}" method="post">
+                            <button id="fav" value="{{ favourite.id }}" name="delete" class="btn btn-default btn-sm">❌</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <div align="center">Add favourites from the <a href="{{ url_for('stations') }}">stations</a> list.</div>
+            {% endif %}
+        </div>
+
+{% endblock %}

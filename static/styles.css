@@ -1,0 +1,155 @@
+html, body {
+    height: 100%;
+}
+
+html, body, h1, h2, .content, #map-canvas, #now-playing {
+    margin: 0;
+    /*overflow: hidden;*/
+    padding: 0;
+}
+
+body {
+    background-color: #fafafa;
+}
+
+p {
+    text-align: center;
+}
+
+audio {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.content {
+    height: auto;
+    min-height: 500px;
+    width: 100%;
+    min-width: 1000px;
+    position: absolute;
+    top: 120px;
+    bottom: 0;
+}
+
+.body-element {
+    background-color: #ffffff;
+    padding: 5px;
+}
+
+.padded-element {
+    padding: 8px;
+}
+
+.table-striped {
+    background-color: #dfdfdf;
+}
+
+#header-container {
+    width: 100%;
+    min-width: 1000px;
+    height: 120px;
+
+    background-color: #3b3d3b;
+    color: #fafafa;
+}
+
+#nav {
+    height: 30px;
+    padding: 4px;
+}
+
+#header-left {
+    width: 40%;
+    min-width: 400px;
+    height: 90px;
+    float: left;
+
+    background-color: #3b3d3b;
+}
+
+#header-block {
+    width: 30%;
+    min-width: 300px;
+    height: 90px;
+    float: left;
+    
+    background-color: #3b3d3b;
+}
+
+#map-canvas {
+    width: 70%;
+    min-width: 700px;
+    height: 100%;
+    float: left;
+
+    background-color: #dfdfdf;
+}
+
+#now-playing {
+    width: 30%;
+    min-width: 300px;
+    height: 100%;
+    float: left;
+
+    background-color: #fafafa;
+}
+
+#player {
+    padding-top: 60px;
+}
+
+#register {
+    margin-left: auto;
+    margin-right: auto;
+    width: 35%;
+    min-width: 400px;
+}
+
+#favmini {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#favmini td {
+    padding: 2px;
+}
+
+#q {
+    /* override typeahead.js's transparent background */
+    background-color: #ffffff;
+
+    /* text box's width */
+    width: 300px;
+}
+
+#q-container {
+    position: absolute;
+    right: 30%;
+    border: 0;
+    margin-right: 10px;
+    top: 10px;
+    height: 35px;
+}
+
+/* stylize typeahead.js a la http://twitter.github.io/typeahead.js/css/examples.css */
+.tt-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 1px;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 300px;
+}
+
+.tt-suggestion.tt-cursor {
+    background-color: #0097cf;
+    color: #fff;
+    cursor: pointer;
+}
+
+.tt-suggestion {
+    margin: 0;
+    padding: 6px 12px;
+}
