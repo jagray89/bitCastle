@@ -97,6 +97,10 @@ $(function() {
 
     // load audio upon request
     playRequest();
+    // mute player audio
+    mutePlayer();
+    // pause player audio
+    pausePlayer();
 
     // check if user is on index/'map' page
     if (window.location.href.split('/').pop() == '') {
@@ -385,4 +389,42 @@ function playRequest()
         }); // end of getJSON
 
     }); // end of button.click function
+}
+
+
+function mutePlayer()
+{
+    // listen for mute button clicks
+    $( "#mute" ).click(function(event) {
+        event.preventDefault();
+
+        var player = $('#player').get(0);
+
+        // check current mute status and toggle
+        if (player.muted == true) {
+            player.muted = false;
+        }
+        else {
+            player.muted = true;
+        }
+    });
+}
+
+
+function pausePlayer()
+{
+    // listen for stop button clicks
+    $( "#pause" ).click(function(event) {
+        event.preventDefault();
+
+        var player = $('#player').get(0);
+
+        // check current pause status and toggle
+        if(player.paused) {
+            player.play();
+        }
+        else {
+            player.pause();
+        }
+    });
 }
