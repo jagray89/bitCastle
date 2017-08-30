@@ -392,7 +392,7 @@ def register():
             return redirect(url_for("register", error="taken"))
 
         # INSERT new user into db
-        hash = pwd_context.encrypt(request.form.get("password"))
+        hash = pwd_context.hash(request.form.get("password"))
         session["user_id"] = db.execute("""
                 INSERT INTO users (username, password)
                 VALUES (:username, :hash)""",
