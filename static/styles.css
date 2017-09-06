@@ -4,7 +4,6 @@ html, body {
 
 html, body, h1, h2, .content, #map-canvas, #now-playing {
     margin: 0;
-    /*overflow: hidden;*/
     padding: 0;
 }
 
@@ -67,7 +66,7 @@ audio {
     background-color: #3b3d3b;
 }
 
-#header-block {
+.header-block {
     width: 30%;
     min-width: 300px;
     height: 90px;

@@ -26,16 +26,18 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 
         <!-- CUSTOM: app's own static files -->
-        <!-- custom CSS -->
-        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
         <!-- custom JS -->
         <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+        <!-- custom CSS -->
+        <link rel="stylesheet" media="screen and (max-width: 480px)" href="{{ url_for('static', filename='portrait.css') }}" />
+        <link rel="stylesheet" media="screen and (min-width: 481px)" href="{{ url_for('static', filename='styles.css') }}" />
 
         <!-- http://stewartjpark.com/Flask-JSGlue/ -->
         {{ JSGlue.include() }}
 
-        <!-- m3u support from https://github.com/aitorciki/jquery-playlist -->
-        <!--<script src="https://github.com/aitorciki/jquery-playlist/jquery.playlist.js"></script>-->
+        <!-- https://pixabay.com/en/radio-antenna-communication-311643/ -->
+        <link rel="icon" href="/static/radio.png"/>
+
         <title>Bit Castle: {% block title %}{% endblock %}</title>
     </head>
 
@@ -55,18 +57,18 @@
                     <span>independent, college, and community radio stations</span>
                 </div>
             </div>
-            <div id="header-block">
+            <div class="header-block">
                 <div class="player" align="center">
                     <audio controls name="media" id="player">
                         <source id="stream" src="" type="audio/mpeg">
                     </audio>
                 </div>
-                <div class="controls" align="center">
+                <div id="controls" align="center">
                     <button type="button" class="btn btn-primary btn-sm" id="mute">Mute</button>
                     <button type="button" class="btn btn-primary btn-sm" id="pause">Pause</button>
                 </div>
             </div>
-            <div id="header-block">
+            <div class="header-block">
                 <div class="padded-element">
 
                     {% if not username %}

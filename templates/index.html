@@ -18,14 +18,14 @@
     </div>
 
     <div id="now-playing">
-        <h3 align="center">Now listening:</h3>
+        <h3 class="shrinks" align="center">Now listening:</h3>
 
         <div id="station-info" class="padded-element" align="center">
             <p>(No station selected)</p>
         </div>
 
         {% if username %}
-        <div class="padded-element">
+        <div class="padded-element" id="favs">
             <hr/>
             <h4 align="center">Favourites:</h4>
             <table id="favmini">
